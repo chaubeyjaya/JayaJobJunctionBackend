@@ -55,3 +55,40 @@ export const getAllApplications = async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 };
+
+
+
+
+
+//today 30 december
+// ======================
+// MONTHLY STUDENT STATS
+// ======================
+export const getMonthlyStudentStats = async (req, res) => {
+  try {
+    const stats = await JobApply.aggregate([
+      {
+        $group: {
+          _id: { $month: "$createdAt" },
+          students: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
+
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    ];
+
+    const result = stats.map((item) => ({
+      name: months[item._id - 1],
+      students: item.students,
+    }));
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Monthly Stats Error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
