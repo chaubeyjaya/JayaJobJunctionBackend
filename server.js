@@ -6,6 +6,11 @@ import userRoutes from './routes/userRoutes.js';
 import companyRoutes from './routes/companyRoutes.js'; // ✅ import router
 import adminRoutes from "./routes/adminRoutes.js";
 import jobApplyRoutes from "./routes/jobApplyRoutes.js";
+import resourceRoutes from "./routes/resourceRoutes.js";
+//nodejs version solve prblm
+import dns from 'node:dns/promises';
+dns.setServers(['1.1.1.1', '8.8.8.8']);
+
 
 dotenv.config();
 
@@ -23,6 +28,10 @@ app.use('/api/companies', companyRoutes); // 👈 use company routes
 app.use("/api/admin", adminRoutes);// Admin routes
 
 app.use("/api/jobapply", jobApplyRoutes);
+
+
+//resources
+app.use("/api/resources", resourceRoutes);
 
 // Connect to DB and start server
 connectDB()
