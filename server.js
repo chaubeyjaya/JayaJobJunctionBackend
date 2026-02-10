@@ -7,6 +7,12 @@ import companyRoutes from './routes/companyRoutes.js'; // ✅ import router
 import adminRoutes from "./routes/adminRoutes.js";
 import jobApplyRoutes from "./routes/jobApplyRoutes.js";
 import resourceRoutes from "./routes/resourceRoutes.js";
+
+
+//contact
+// import contactRoutes from "./routes/contactRoutes.js"; // 1. IMPORT
+import contactRoutes from "./routes/contactRoutes.js";
+
 //nodejs version solve prblm
 import dns from 'node:dns/promises';
 dns.setServers(['1.1.1.1', '8.8.8.8']);
@@ -32,6 +38,10 @@ app.use("/api/jobapply", jobApplyRoutes);
 
 //resources
 app.use("/api/resources", resourceRoutes);
+
+// 2. Mount the contact routes
+app.use("/api/contact", contactRoutes); // 2. MOUNT
+
 
 // Connect to DB and start server
 connectDB()
